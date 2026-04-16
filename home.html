@@ -9,9 +9,9 @@
     <body>
         <nav>
             <img id="burgerMenu"/>
-            <img id="logo"/>
+            <img src="assets/RestaurantLogo/logoLightL.png" alt="Logo"/>
             <img id="userpfp"/>
-            <button>Sign In</button>
+            <button id="openBtn">Sign In</button>
             <!--
             Owner - Management
             Manager - Management
@@ -37,5 +37,23 @@
         <div>
             <!--two cards-->
         </div>
+        <!--hidden sign-in-->
+        <div class="sign-in-popup" id="myPopup">
+            <div class="container">
+                <img src="assets/RestaurantLogo/logoLightHQ.png" alt="Logo" class="logo"/>
+                <h1>Order Today!</h1>
+                <p>Sign Up or Log In</p>
+                <button>
+                    <img />
+                    Continue with Google
+                </button>
+                <button>
+                    <img/>
+                    Continue with Email
+                </button>
+            </div>
+            <button id="closeBtn" class="closeBtn">Close</button>
+        </div>
+        <script type="module" src="script.js"></script>
     </body>
 </html>
