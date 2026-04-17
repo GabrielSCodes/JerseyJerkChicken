@@ -3,15 +3,15 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>JJ-BBQ</title>
-        <link id="" href="styles/home.css" rel="stylesheet">
+        <title>JJC</title>
+        <link href="styles/home.css" rel="stylesheet">
     </head>
     <body>
         <nav>
             <img id="burgerMenu"/>
             <img src="assets/RestaurantLogo/logoLightL.png" alt="Logo"/>
             <img id="userpfp"/>
-            <button id="openBtn">Sign In</button>
+            <button id="openBtn1">Sign In</button>
             <!--
             Owner - Management
             Manager - Management
@@ -28,32 +28,41 @@
                     <p>Jerk.</p>
                 </div>
                 <button>Dine In</button>
-                <button>Order Delivery</button>
-            </div>
-            <div class="heroImg">
-                <img src="assets/Jerk.png" alt="jerk" class="jerk"/>
             </div>
         </div>
         <div>
             <!--two cards-->
         </div>
         <!--hidden sign-in-->
-        <div class="sign-in-popup" id="myPopup">
-            <div class="container">
-                <img src="assets/RestaurantLogo/logoLightHQ.png" alt="Logo" class="logo"/>
-                <h1>Order Today!</h1>
-                <p>Sign Up or Log In</p>
-                <button>
-                    <img />
-                    Continue with Google
-                </button>
-                <button>
-                    <img/>
-                    Continue with Email
-                </button>
-            </div>
-            <button id="closeBtn" class="closeBtn">Close</button>
+        <div class="sign-in-popup" id="myPopup1">
+                <div class="container">
+                    <img src="assets/RestaurantLogo/logoLightHQ.png" alt="Logo" class="logo"/>
+                    <h1 class="title1">Order Today!</h1>
+                    <p class="sub1">Sign Up or Log In</p>
+                    <button  id="google" class="signinbtn">
+                        <img src="assets/googleicon.png" alt="googleicon" class="googleicon"/>
+                        Continue with Google
+                    </button>
+                    <button class="signinbtn" id="openBtn2">
+                        <img src="assets/mail.png" alt="mail" id="email" class="mail"/>
+                        Sign-up with Email
+                    </button>
+                    <button class="signinbtn">
+                        Log-In
+                    </button>
+                </div>
+            <img src="assets/exit.png" alt="x" id="closeBtn1" class="closeBtn"/>
         </div>
+
+        <div class="sign-in-popup" id="myPopup2">
+            <form class="sign-inorup" id="sign-inorup">
+                <input type="email" placeholder="Email" id="emailInput" class="emailInput"/>
+                <input type="password" placeholder="Password" id="passwordInput" class="passwordInput"/>
+                <button type="submit" id="submitBtn" class="">Submit</button>
+            </form>
+            <img src="assets/exit.png" alt="x" id="closeBtn2" class="closeBtn"/>
+        </div>
+
         <script type="module" src="script.js"></script>
     </body>
 </html>

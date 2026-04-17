@@ -13,14 +13,6 @@ nav{
 .jerk{
     width:400px;
 }
-.heroImg{
-    background-color:#987C68;
-    width:450px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    border-radius: 50px;
-}
 .slogan{
     font-size:40px;
     color:rgb(0, 0, 0);
@@ -31,7 +23,7 @@ nav{
 }
 .sign-in-popup{
     width:100%;
-    height:370px;
+    
     display:none;
     position: fixed;
     bottom: 0;
@@ -41,6 +33,11 @@ nav{
     background:#fff;  
     z-index:1000;
     background-color:#761B1B;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 .logo{
     width:60px;
@@ -53,9 +50,48 @@ nav{
     flex-direction: column;
     justify-content:space-around;
     align-items:center;
+    line-height: 0;
+    color:white;
+    
+
+    
 }
 .closeBtn{
     position: absolute;
-    top: 0%;
-    right: 0%;
+    top: 1%;
+    right: 1%;
+}
+.title1{
+    font-size:40px;
+    font-family: "Caveat", cursive;
+    font-weight: 600;
+    font-style: normal;  
+}
+.sub1{
+    font-family: "Bpmf Huninn", cursive;
+    font-size:16px;
+    font-weight: 400;
+    font-style: normal;  
+}
+.signinbtn{
+    font-family: "Bpmf Huninn", cursive;
+    background-color:white;
+    border:1px solid black;
+    height:50px;
+    width:315px;
+    border-radius: 0.5rem;
+    font-size:16px;
+    font-weight: 400;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap:10%;
+}
+.sign-inorup{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    gap:10px;
 }
