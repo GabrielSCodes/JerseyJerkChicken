@@ -44,22 +44,16 @@ nav{
     height:60px;
     border-radius: 6px;
 }
-.container{
-    height:370px;
-    display:flex;
-    flex-direction: column;
-    justify-content:space-around;
-    align-items:center;
-    line-height: 0;
-    color:white;
-    
 
-    
-}
 .closeBtn{
     position: absolute;
     top: 1%;
     right: 1%;
+}
+.back{
+    position: absolute;
+    top: 1.5%;
+    left: 1.5%;
 }
 .title1{
     font-size:40px;
@@ -87,11 +81,65 @@ nav{
     align-items: center;
     gap:10%;
 }
-.sign-inorup{
+.sign-up{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100px;
-    gap:10px;
+    height: 1000px;
+    line-height: 0;
+}
+.container1{
+    height:370px;
+    display:flex;
+    flex-direction: column;
+    justify-content:space-around;
+    align-items:center;
+    line-height: 0;
+    color:white;
+}
+.container2{
+    height:550px;
+    display:flex;
+    flex-direction: column;
+    justify-content:space-around;
+    align-items:center;
+    line-height: 0;
+    color:white;
+    padding:10px;
+    padding-bottom: 20px;
+}
+.container3{
+    height:380px;
+    display:flex;
+    flex-direction: column;
+    justify-content:space-around;
+    align-items:center;
+    line-height: 0;
+    color:white;
+    padding:10px;
+    padding-bottom: 20px;
+}
+.formtitles{
+    font-family: "Bpmf Huninn", cursive;
+    font-size:16px;
+    font-weight: 400;
+    font-style: normal;
+}
+.sign-up input{
+    width:315px;
+    height:50px;
+    border-radius: 0.5rem;
+    border:1px solid black;
+}
+.submitBtn{
+    font-family: "Bpmf Huninn", cursive;
+    background-color:#E2CEB1;
+    border-radius: 30px;
+    border:none;
+    height:50px;
+    width:270px;
+    font-size:16px;
+    font-weight: 400;
+    margin-top:20px;
 }

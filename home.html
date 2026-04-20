@@ -35,7 +35,7 @@
         </div>
         <!--hidden sign-in-->
         <div class="sign-in-popup" id="myPopup1">
-                <div class="container">
+                <div class="container1">
                     <img src="assets/RestaurantLogo/logoLightHQ.png" alt="Logo" class="logo"/>
                     <h1 class="title1">Order Today!</h1>
                     <p class="sub1">Sign Up or Log In</p>
@@ -47,22 +47,53 @@
                         <img src="assets/mail.png" alt="mail" id="email" class="mail"/>
                         Sign-up with Email
                     </button>
-                    <button class="signinbtn">
+                    <button class="signinbtn" id="openBtn3">
                         Log-In
                     </button>
                 </div>
             <img src="assets/exit.png" alt="x" id="closeBtn1" class="closeBtn"/>
         </div>
-
+        <!--hidden sign-up-->
         <div class="sign-in-popup" id="myPopup2">
-            <form class="sign-inorup" id="sign-inorup">
-                <input type="email" placeholder="Email" id="emailInput" class="emailInput"/>
-                <input type="password" placeholder="Password" id="passwordInput" class="passwordInput"/>
-                <button type="submit" id="submitBtn" class="">Submit</button>
-            </form>
+            <div class="container2">
+                <img src="assets/RestaurantLogo/logoLightHQ.png" alt="Logo" class="logo"/>
+                <h1 class="title1">Order Today!</h1>
+                <p class="sub1">Sign Up or Log In</p>
+                <form class="sign-up" id="signupForm">
+                    <div>
+                        <p class="formtitles">Email Address *</p>
+                        <input type="email" placeholder="Email" id="emailInput1" class="emailInput" required/>
+                        <p class="formtitles">Password *</p>
+                        <input type="password" placeholder="Password" id="passwordInput1" class="passwordInput" required/>
+                        <p class="formtitles">First Name  *</p>
+                        <input type="text" placeholder="First Name" id="fname" class="fname" required/>
+                        <p class="formtitles">Last Name *</p>
+                        <input type="text" placeholder="Last Name" id="lname" class="lname" required/>
+                    </div>
+                    <button type="submit" id="submitBtn1" class="submitBtn">Sign Up</button>
+                </form>
+            </div>
+            <img src="assets/bai.png" alt="arrow" id="back1" class="back"/>
             <img src="assets/exit.png" alt="x" id="closeBtn2" class="closeBtn"/>
         </div>
-
+        <!--hidden login-->
+        <div class="sign-in-popup" id="myPopup3">
+            <div class="container3">
+                <img src="assets/RestaurantLogo/logoLightHQ.png" alt="Logo" class="logo"/>
+                <h1 class="title1">Order Today!</h1>
+                <p class="sub1">Log In</p>
+                <form class="sign-up" id="loginForm">
+                    <div>
+                        <p class="formtitles">Email Address *</p>
+                        <input type="email" placeholder="Email" id="emailInput2" class="emailInput" required/>
+                        <p class="formtitles">Password *</p>
+                        <input type="password" placeholder="Password" id="passwordInput2" class="passwordInput" required/>
+                    </div>
+                    <button type="submit" id="submitBtn2" class="submitBtn">Sign Up</button>
+                </form>
+            </div>
+            <img src="assets/bai.png" alt="arrow" id="back2" class="back"/>
+            <img src="assets/exit.png" alt="x" id="closeBtn3" class="closeBtn"/>
         <script type="module" src="script.js"></script>
     </body>
 </html>
