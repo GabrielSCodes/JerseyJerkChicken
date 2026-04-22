@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Damion&family=Dancing+Script:wght@400..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bpmf+Huninn&family=Caveat:wght@400..700&family=Damion&family=Dancing+Script:wght@400..700&display=swap');
 body{
     margin:0;
@@ -55,17 +54,6 @@ nav{
     cursor: pointer;
 }
 
-.jerk{
-    width:400px;
-}
-.slogan{
-    font-size:40px;
-    color:rgb(0, 0, 0);
-    font-family: "Damion", cursive;
-    font-weight: 600;
-    font-style: normal;  
-    line-height: 40%;
-}
 .sign-in-popup{
     width:100%;
     
@@ -192,4 +180,67 @@ nav{
     font-weight: 400;
     margin-top:20px;
     cursor: pointer;
+}
+.home-align{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+.home-align h1{
+    font-family: "Damion", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 64px;
+  margin-bottom: 0;
+}
+#hot{
+    color: #FF0A0E;
+    font-family: "Damion", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size:24px;
+  margin-bottom: 0;
+}
+#loc{
+    font-family: "Damion", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size:42px; 
+    margin:0;
+}
+#tech{
+    font-family: "Damion", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size:32px; 
+    margin:0;
+}
+#juicy{
+    color: #FF0A0E;
+    font-family: "Caveat", cursive;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 36px;
+}
+#favorites{
+    font-family: "Caveat", cursive;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 36px;
+}
+.menuCard{
+    color:white;
+    background-color:#761B1B;
+    width:239px;
+    height: 245px;
+    display:flex;
+    flex-direction:column;
+}
+.menuCard img{
+    width: 206px;
+    height: 154px;
+    align-self:center;
+    
 }
