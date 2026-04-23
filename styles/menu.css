@@ -70,8 +70,9 @@ nav{
     border-radius:88px;
     display:flex; 
     flex-wrap:wrap;
-    gap:10px;
+    gap:25px;
     justify-content: center;
+
 }
 .filterBtn{
     font-family: "Damion", cursive;
@@ -109,12 +110,13 @@ nav{
     align-items:center;
     gap:20px;
 }
-.house-favs{
+.all-cards{
     display:flex;
     flex-direction:row;
     justify-content:center;
     margin-top:20px;
     gap: 50px;
+    flex-wrap: wrap;
 }
 .menuCard{
     color:white;
@@ -133,14 +135,8 @@ nav{
 }
 .item-header{
     display:flex;
-    /*
-    justify-content:center;
-    
-    gap:100px;
-    */
     margin-top:10px;
-    justify-content:space-around;
-    align-items:center;
+    justify-content:space-evenly;
 }
 .item_name{
      font-family: "Dancing Script", cursive;
@@ -163,5 +159,6 @@ nav{
   font-style: normal;
   font-size:12px;
   color:white;
-  padding-left:12px;
+  padding-left: 12px;
+  text-align:center;
 }

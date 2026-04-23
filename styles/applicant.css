@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Bpmf+Huninn&family=Caveat:wght@400..700&family=Damion&family=Dancing+Script:wght@400..700&display=swap');
+body{
+    margin:0;
+    padding:0;
+    background-color:white;
+}
+nav{
+    width:100%;
+    height:75px;
+    background-color:#761B1B;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav-alignment1{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height:0;
+    margin-top: 10px;
+    color:white;
+    font-family: "Damion", cursive;
+    font-weight: 400;
+    font-style: normal;  
+}
+.BM{
+    width:100px;
+}
+.nav-alignment2{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+    margin-right: 20px;
+    width:100px;
+}
+.burgerMenu{
+    cursor: pointer;
+    margin-left:20px;
+}
+.navsigninBtn{
+    font-family: "Bpmf Huninn", cursive;
+    background-color:white;
+    border:none;
+    height:30px;
+    width:80px;
+    border-radius: 0.5rem;
+    font-size:14px;
+    font-weight: 400;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+h1{
+    font-family: "Damion", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 48px;
+    text-align:center;
+}
+.align_emp{
+    display:flex;
+    flex-direction:column;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:50px;
+
+}
+.employee_card{
+    background-color: #761b1b;
+    color:white;
+    width: 974px;
+    height: 265px;
+    font-family: "Caveat", cursive;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-size:36px;
+    display:flex;
+    flex-direction:column;
+    align-items:start;
+    justify-content:center;
+    padding-left:20px;
+}
+.hire_rej{
+    font-family: "Bpmf Huninn", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+    font-size: 32px;
+    background-color: #E2CEB1;
+    width:323px;
+    height:87px;
+    border:none;
+    cursor:pointer;
+}
+.h_r{
+    display:flex;
+    gap:320px;
+}

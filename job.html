@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>JJC</title>
+        <link href="styles/job.css" rel="stylesheet">
+    </head>
+    <body>
+        <nav>
+            <div class="BM">
+                <img src="assets/Vector.png" alt="burgerMenu" id="burgerMenu" class="burgerMenu"/>
+            </div>
+            <div class="nav-alignment1">
+                <img src="assets/RestaurantLogo/logoLightL.png" alt="Logo"/>
+                <p>Smoky Goodness In Every Bite</p>
+            </div>
+            <div class="nav-alignment2">
+                <img src="assets/userpfp.png" alt="userpfp" id="userpfp"/>
+                <button class="navsigninBtn" id="openBtn1">Sign In</button>
+            </div>
+            <!--
+            Owner - Management
+            Manager - Management
+            Chef - View Orders
+            Waiter - View Tables
+            Customer - View Menu
+            -->
+        </nav>
+        <h2> Apply for position at Jersey Jerk BBQ </h2>
+        <h2> Join the family! </h2>
+        <p> Select a position </p>
+        <div class="application">
+            <label for="positions">Positions:</label>
+
+            <select name="positions" id="positions">
+            <option value="" disabled selected>Select a position</option>
+              <option value="owner">Owner</option>
+              <option value="manager">Manager</option>
+              <option value="chef">Chef</option>
+              <option value="waiter">Waiter</option>
+              <option value="customer">Customer</option>
+            </select>
+        </div>
+        <div>
+            <form>
+                <label for="qual">Your Qualifications:</label>
+                <input type="text" id="qual" name="qual">
+              </form>
+        </div>
+        <script type="module" src="script.js"></script>  
+    </body>
+    </html>

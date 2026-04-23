@@ -260,8 +260,7 @@ nav{
     gap:100px;
     */
     margin-top:10px;
-    justify-content:space-around;
-    align-items:center;
+    justify-content:space-evenly;
 }
 .item_name{
      font-family: "Dancing Script", cursive;
@@ -285,6 +284,7 @@ nav{
   font-size:12px;
   color:white;
   padding-left:12px;
+  text-align:center;
 }
 .dine{
     background-color: #761B1B;
