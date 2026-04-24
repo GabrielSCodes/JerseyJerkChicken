@@ -30,28 +30,30 @@
         <h2> Apply for position at Jersey Jerk BBQ </h2>
         <h2> Join the family! </h2>
         <div class="align">
-        <span id="select"> Select a position </span>
-        <div class="application">
-            <label for="positions">Positions:</label>
-
-            <select name="positions" id="positions">
-            <option value="" disabled selected>Select a position</option>
-              <option value="owner">Owner</option>
-              <option value="manager">Manager</option>
-              <option value="chef">Chef</option>
-              <option value="waiter">Waiter</option>
-              <option value="customer">Customer</option>
-            </select>
-        </div>
-        <div>
-            <form>
-                <div class="qualifications">
-                <label for="qual">Your Qualifications:</label>
-                <textarea id="qual" name="qual" placeholder="Enter skills:" maxlength="250"></textarea>
-                </div>
-              </form>
-        </div>
-        <button class="submit"> Submit Application </button>
+        <form id="apply">
+            <span id="select"> Select a position </span>
+            <div class="application">
+                <label for="positions">Positions:</label>
+                
+                <select name="positions" id="positions">
+                <option value="" disabled selected>Select a position</option>
+                <option value="owner">Owner</option>
+                <option value="manager">Manager</option>
+                <option value="chef">Chef</option>
+                <option value="waiter">Waiter</option>
+                <option value="customer">Customer</option>
+                </select>
+            </div>
+            <div>
+                
+                    <div class="qualifications">
+                    <label for="qual">Your Qualifications:</label>
+                    <textarea id="qual" name="qual" placeholder="Enter skills:" maxlength="250"></textarea>
+                    </div>
+            
+            </div>
+            <button class="submit"> Submit Application </button>
+        </form>
         </div>
         <h2> Thank you for applying we look forward to reading your application!</h2>
         <script type="module" src="script.js"></script>  

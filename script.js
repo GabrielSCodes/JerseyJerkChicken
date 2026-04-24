@@ -24,6 +24,7 @@ import {
     deleteDoc
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
+//Login
 const popup1 = document.getElementById("myPopup1");
 document.getElementById("openBtn1").onclick = () => popup1.style.display = "block";
 document.getElementById("closeBtn1").onclick = () => popup1.style.display = "none";
@@ -38,6 +39,12 @@ document.getElementById("back2").onclick = async () => { popup1.style.display = 
 popup1.style.display = "none";
 popup2.style.display = "none";
 popup3.style.display = "none";
+
+//Sidebars
+const sidebar1 = document.getElementById("sidebar1");
+document.getElementById("open-sidebar").onclick = () => sidebar1.style.left = "0";
+document.getElementById("close-sidebar").onclick = () => sidebar1.style.left = "-251px";
+
 
 //Google SignIn
 const provider = new GoogleAuthProvider();
@@ -118,3 +125,29 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// Rate Stars onClick Function
+document.addEventListener("DOMContentLoaded", () => {
+  // Use event delegation on a parent container
+  const starsContainer = document.querySelector(".stars_container"); // or another parent
+  
+  if (starsContainer) {
+    starsContainer.addEventListener("click", (e) => {
+      const star = e.target.closest(".star");
+      if (!star) return;
+
+      const currentSrc = star.getAttribute("src");
+      
+      if (!currentSrc) {
+        console.warn("Star element has no src attribute");
+        return;
+      }
+
+      // Toggle the star's image
+      const newSrc = currentSrc.includes("blank.svg") 
+        ? "assets/stars/yellow.svg" 
+        : "assets/stars/blank.svg";
+      
+      star.setAttribute("src", newSrc);
+    });
+  }
+});

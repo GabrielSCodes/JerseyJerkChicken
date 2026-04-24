@@ -303,3 +303,44 @@ nav{
     margin-top:30px;
     width: 100%; 
 }
+
+/* Sidebars */
+.sidebar{
+    width: 250px;
+    height: 100vh;
+    background-color: #761B1B;
+    position: fixed;
+    top: 0;
+    left: -251px; /* Start hidden */
+    transition: left 0.3s ease;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid white;
+}
+.side-container{
+    display:flex;
+    flex-direction: column;
+    gap:100px;
+    margin-top: 50px;
+}
+.sbTitle{
+    font-family: "Dancing Script", cursive;
+    font-weight: 400;
+    font-size: 40px;
+    color:white;
+}
+.path{
+    font-family: "Dancing Script", cursive;
+    font-weight: 400;
+    font-size: 22px;
+    color:white;
+    background-color: transparent;
+    border: none;
+    display:flex;
+    cursor:pointer;
+    width:230px;
+    justify-content: space-between;
+    border-bottom: 1px solid white;
+    padding:10px;
+}
