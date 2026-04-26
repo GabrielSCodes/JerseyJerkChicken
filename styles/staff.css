@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Bpmf+Huninn&family=Caveat:wght@400..700&family=Damion&family=Dancing+Script:wght@400..700&display=swap');
+body{
+    margin:0;
+    padding:0;
+    background-color:white;
+}
+nav{
+    width:100%;
+    height:75px;
+    background-color:#761B1B;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav-alignment1{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height:0;
+    margin-top: 10px;
+    color:white;
+    font-family: "Damion", cursive;
+    font-weight: 400;
+    font-style: normal;  
+}
+.BM{
+    width:100px;
+}
+.nav-alignment2{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+    margin-right: 20px;
+    width:100px;
+}
+.burgerMenu{
+    cursor: pointer;
+    margin-left:20px;
+}
+.navsigninBtn{
+    font-family: "Bpmf Huninn", cursive;
+    background-color:white;
+    border:none;
+    height:30px;
+    width:80px;
+    border-radius: 0.5rem;
+    font-size:14px;
+    font-weight: 400;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+h1{
+     font-family: "Bpmf Huninn", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size:32px;
+  padding-left:22px;
+}
+h2{
+    font-family: "Bpmf Huninn", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size:32px;
+  padding-left:22px;
+}
+.employee_card{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-evenly;
+    align-items:center;
+     font-family: "Damion", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size:15px;
+}
+.fire{
+    width:112px;
+    height:35px;
+    border:none;
+    border-radius:10px;
+    background-color:#761B1B;
+    cursor:pointer;
+    color:white;
+    font-family: "Damion", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size:15px;
+}
+.container{
+    display:flex;
+    flex-direction:column;
+    gap:35px;
+}

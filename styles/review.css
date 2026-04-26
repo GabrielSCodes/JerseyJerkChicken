@@ -78,10 +78,67 @@ h1{
   font-weight: 700;
   font-style: normal;
 }
-textarea::placeholder {
-    font-size: 32px;
+.rev{
+background-color:#761B1B;
+    width:1149px;
+    height:127px;
+    font-size: 20px;
+    color:white;
+    font-family: "Bpmf Huninn", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    padding-top:20px;
+    padding-left:20px;
+}
+.past_rev{
+ background-color:#761B1B;
+    width:1200px;
+    height:80px;
+    font-size: 16px;
+    color:white;
+    font-family: "Bpmf Huninn", sans-serif;
+    font-weight: 400;
+    font-style: normal;  
+    padding-top:20px;
+    padding-left:20px; 
+}
+.rev::placeholder {
+    font-size: 20px;
     color:white;
     font-family: "Bpmf Huninn", sans-serif;
     font-weight: 400;
     font-style: normal;
     }
+.past_rev::placeholder {
+    font-size: 16px;
+    color:white;
+    font-family: "Bpmf Huninn", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    }
+.heading{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+.star_container{
+    display:flex;
+    align-items:center;
+}
+.customers{
+     font-size: 24px;
+    font-family: "Bpmf Huninn", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    margin-bottom:25px;
+    margin-top: 30px;
+}
+.reviewer{
+font-family: "Damion", cursive;
+    font-weight: 400;
+    font-style: normal;  
+    font-size:20px;
+}
+.page{
+    margin-left:12px;
+}
