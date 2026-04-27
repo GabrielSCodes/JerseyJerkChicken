@@ -214,6 +214,20 @@
 
             </div>
         </div>
+        <div id="orderReceiptSidebar" class="receipt-sidebar">
+            <div class="receipt-header">
+                <h2>Order Receipt</h2>
+                <button id="closeOrderSidebar" class="receipt-close">×</button>
+            </div>
+            <div id="orderItems" class="order-items">
+                <p class="empty-order">Select items to build the order.</p>
+            </div>
+            <div class="receipt-total">
+                <span>Total:</span>
+                <span>$<span id="orderTotal">0.00</span></span>
+            </div>
+            <button id="submitOrderBtn" class="submit-order-btn" type="button">Submit Order</button>
+        </div>
         <script type="module" src="script.js"></script>
     </body>
 </html>
