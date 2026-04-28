@@ -391,6 +391,7 @@ async function getUserRole(user) {
 }
 
 function enforceRoleAccess(role) {
+    if (role === "owner") return; // Owners can access any page
     const pageName = window.location.pathname.split("/").pop();
     const allowed = roleSidebarDefinitions[role]?.allowedPages || roleSidebarDefinitions.customer.allowedPages;
     if (!allowed.includes(pageName)) {
@@ -407,7 +408,7 @@ function canTerminateEmployee(targetEmail, targetTitle) {
     if (!currentUser) return false;
     const lowerTitle = String(targetTitle || "").toLowerCase();
     if (currentRole === "owner") {
-        return currentUser.email !== targetEmail;
+        return lowerTitle !== "owner";
     }
     if (currentRole === "manager") {
         return lowerTitle !== "owner";
@@ -632,6 +633,100 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
+    const inventoryList = document.getElementById("inventoryList");
+    if (inventoryList) {
+      const defaultIngredients = [
+        { name: "Tomatoes", totalBought: 50, remaining: 50 },
+        { name: "Lettuce", totalBought: 50, remaining: 50 },
+        { name: "Homie Drizzle", totalBought: 50, remaining: 50 },
+        { name: "Bread", totalBought: 50, remaining: 50 },
+        { name: "Cheese", totalBought: 50, remaining: 50 },
+        { name: "Onions", totalBought: 50, remaining: 50 },
+        { name: "Ketchup", totalBought: 50, remaining: 50 },
+        { name: "Mayo", totalBought: 50, remaining: 50 },
+        { name: "Chicken", totalBought: 50, remaining: 50 },
+        { name: "Potatoes", totalBought: 50, remaining: 50 },
+        { name: "Yams", totalBought: 50, remaining: 50 },
+        { name: "Beans", totalBought: 50, remaining: 50 },
+        { name: "Lentils", totalBought: 50, remaining: 50 },
+        { name: "Cow Meat", totalBought: 50, remaining: 50 },
+        { name: "Rice", totalBought: 50, remaining: 50 },
+        { name: "Eggs", totalBought: 50, remaining: 50 },
+        { name: "Bacon", totalBought: 50, remaining: 50 },
+        { name: "Shrimp", totalBought: 50, remaining: 50 },
+        { name: "Avocado", totalBought: 50, remaining: 50 },
+        { name: "Beef", totalBought: 50, remaining: 50 },
+        { name: "Steak", totalBought: 50, remaining: 50 },
+        { name: "Coca Cola", totalBought: 50, remaining: 50 },
+        { name: "Sprite", totalBought: 50, remaining: 50 },
+        { name: "Fanta", totalBought: 50, remaining: 50 },
+        { name: "Guarana", totalBought: 50, remaining: 50 },
+        { name: "Inca Kola", totalBought: 50, remaining: 50 },
+        { name: "Water", totalBought: 50, remaining: 50 }
+      ];
+
+      const renderInventory = (docs) => {
+        inventoryList.innerHTML = "";
+        if (!docs.length) {
+          const empty = document.createElement("p");
+          empty.className = "empty-order";
+          empty.textContent = "No ingredients found.";
+          inventoryList.appendChild(empty);
+          return;
+        }
+
+        docs.forEach((docSnapshot) => {
+          const ingredient = docSnapshot.data();
+          const card = document.createElement("div");
+          card.className = "stock_card";
+
+          const nameEl = document.createElement("p");
+          nameEl.textContent = ingredient.name || "Unnamed Ingredient";
+
+          const totalEl = document.createElement("p");
+          totalEl.textContent = ingredient.totalBought != null ? ingredient.totalBought : "0";
+
+          const remainingEl = document.createElement("p");
+          remainingEl.textContent = ingredient.remaining != null ? ingredient.remaining : "0";
+
+          card.appendChild(nameEl);
+          card.appendChild(totalEl);
+          card.appendChild(remainingEl);
+          inventoryList.appendChild(card);
+        });
+      };
+
+      const seedDefaultIngredients = async () => {
+        try {
+          await Promise.all(
+            defaultIngredients.map((ingredient) =>
+              addDoc(collection(db, "ingredients"), {
+                name: ingredient.name,
+                totalBought: ingredient.totalBought,
+                remaining: ingredient.remaining,
+                createdAt: serverTimestamp()
+              })
+            )
+          );
+        } catch (error) {
+          console.error("Seeding default ingredients failed:", error);
+        }
+      };
+
+      const ingredientsCollection = collection(db, "ingredients");
+      let hasSeededIngredients = false;
+      onSnapshot(ingredientsCollection, async (snapshot) => {
+        if (!snapshot.docs.length && !hasSeededIngredients) {
+          hasSeededIngredients = true;
+          await seedDefaultIngredients();
+          return;
+        }
+        renderInventory(snapshot.docs);
+      }, (error) => {
+        console.error("Ingredients snapshot failed:", error);
+      });
+    }
+
     const orderList = document.getElementById("orderList");
     if (orderList) {
       const formatOrderTime = (timestamp) => {
@@ -700,6 +795,66 @@ document.addEventListener("DOMContentLoaded", () => {
     const submitOrderBtn = document.getElementById("submitOrderBtn");
     const closeOrderSidebarBtn = document.getElementById("closeOrderSidebar");
     const menuCards = document.querySelectorAll(".menuCard");
+    const filterButtons = document.querySelectorAll(".filterBtn");
+
+    const menuCategoryMap = {
+      appetizers: new Set([
+        "tenders and fries",
+        "coconut fried shrimp",
+        "the jerk",
+        "mozzarella sticks",
+        "mini sliders"
+      ]),
+      sandwiches: new Set([
+        "chicken sandwich",
+        "jerk chicken sandwich",
+        "bacon egg and cheese",
+        "blt"
+      ]),
+      "meals/specials": new Set([
+        "mogger meal",
+        "surfin and jerkin",
+        "jack o jerk",
+        "smokey pot roaster"
+      ]),
+      combos: new Set(["combo"]),
+      drinks: new Set([
+        "coca cola",
+        "sprite",
+        "fanta",
+        "guarana",
+        "inca kola",
+        "water"
+      ])
+    };
+
+    function filterMenu(category) {
+      menuCards.forEach((card) => {
+        const name = card.querySelector(".item_name")?.textContent?.trim().toLowerCase() || "";
+        const show = category === "all" || menuCategoryMap[category]?.has(name);
+        card.style.display = show ? "flex" : "none";
+      });
+    }
+
+    function setActiveFilter(activeButton) {
+      filterButtons.forEach((button) => {
+        button.classList.toggle("active", button === activeButton);
+      });
+    }
+
+    if (filterButtons.length) {
+      const allButton = document.querySelector("#filterBtn1");
+      if (allButton) {
+        setActiveFilter(allButton);
+      }
+      filterButtons.forEach((button, index) => {
+        button.addEventListener("click", () => {
+          const category = index === 0 ? "all" : ["appetizers", "sandwiches", "meals/specials", "combos", "drinks"][index - 1];
+          filterMenu(category);
+          setActiveFilter(button);
+        });
+      });
+    }
 
     let orderState = {};
 
