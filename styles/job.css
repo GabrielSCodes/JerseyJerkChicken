@@ -181,3 +181,63 @@ option {
     .align{
         padding-left:33px;
     }
+
+    @media screen and (min-width: 800px) and (max-width:1199px){
+        .application{
+            width:300px;
+            height: 80px;
+            font-size: 24px;
+        }
+        #qual{
+            width:750px;
+            height:150px;
+            font-size: 24px;
+        }
+        .qualifications label {
+            font-size: 24px;
+        }
+        textarea::placeholder {
+            font-size: 24px;
+        }
+        #select{
+            font-size: 24px;
+        }
+        .submit{
+            width:250px;
+            height:70px;
+            font-size:18px;
+        }
+        h2{
+            font-size:32px;
+        }
+    }
+    @media screen and (max-width: 799px){
+        .application{
+            width:250px;
+            height: 60px;
+            font-size: 18px;
+        }
+        #qual{
+            width:400px;
+            height:150px;
+            font-size: 18px;
+        }
+        .qualifications label {
+            font-size: 18px;
+        }
+        textarea::placeholder {
+            font-size: 18px;
+        }
+        #select{
+            font-size: 18px;
+        }
+        .submit{
+            width:200px;
+            height:50px;
+            font-size:14px;
+        }
+        h2{
+            font-size:24px;
+        }
+         
+    }

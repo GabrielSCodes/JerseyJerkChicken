@@ -141,3 +141,33 @@ h2{
     display:flex;
     align-items:start;
 }
+@media screen and (min-width: 800px) and (max-width:1199px){
+    .start{
+        width:500px;
+        height:100px;
+        font-size:24px;
+    }
+    .end{
+        width:500px;
+        height:100px;
+        font-size:24px;
+    }
+    .times{
+        font-size:20px;
+    }
+}
+@media screen and (max-width: 799px){
+    .start{
+        width:300px;
+        height:80px;
+        font-size:20px;
+    }
+    .end{
+        width:300px;
+        height:80px;
+        font-size:20px;
+    }
+    .times{
+        font-size:20px;
+    }
+}

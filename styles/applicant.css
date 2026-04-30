@@ -115,3 +115,33 @@ h1{
     display:flex;
     gap:320px;
 }
+@media screen and (min-width: 800px) and (max-width:1199px){
+    .employee_card{
+        width: 700px;
+        height: 200px;
+        font-size: 28px;
+    }
+    .hire_rej{
+        width:250px;
+        height:70px;
+        font-size: 24px;
+    }
+    .h_r{
+        gap:200px;
+    }
+}
+@media screen and (max-width: 799px) {
+    .employee_card{
+        width: 500px;
+        height: 150px;
+        font-size: 20px;
+    }
+    .hire_rej{
+        width:200px;
+        height:50px;
+        font-size: 18px;
+    }
+    .h_r{
+        gap:100px;
+    }
+}

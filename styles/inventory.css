@@ -109,3 +109,13 @@ h1{
     flex-direction:column;
     gap:24px;
 }
+@media screen and (min-width: 800px) and (max-width: 1199px){
+    .stock_card{
+        width: 700px;
+    }
+}
+@media screen and (max-width: 799px){
+    .stock_card{
+        width: 400px;
+    }
+}
