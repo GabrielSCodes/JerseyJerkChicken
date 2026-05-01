@@ -858,6 +858,11 @@ document.addEventListener("DOMContentLoaded", () => {
             await completeOrder(docSnapshot.id, order.items, order.total);
           });
           
+          // Wrap buttons in a container
+          const buttonContainer = document.createElement("div");
+          buttonContainer.className = "button-container";
+          buttonContainer.appendChild(completeBtn);
+          
           // Add Delete button only for owner and manager
           if (currentRole === "owner" || currentRole === "manager") {
             const deleteBtn = document.createElement("button");
