@@ -80,8 +80,7 @@ h1{
 .order_card{
     background-color: #761B1B;
     width:314px;
-    min-height:280px;
-    max-height:400px;
+    height:369px;
     font-family: "Damion", cursive;
   font-weight: 400;
   font-style: normal;
@@ -91,7 +90,6 @@ h1{
   display:flex;
   flex-direction:column;
   justify-content:space-between;
-  overflow: hidden;
 }
 .align{
     margin-left:40px;

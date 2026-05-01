@@ -159,3 +159,26 @@ font-family: "Damion", cursive;
 .page{
     margin-left:12px;
 }
+@media screen and (min-width: 800px) and (max-width: 1199px) {
+    .rev{
+        width:750px;
+    }
+    .past_rev{
+        width:725px;
+    }
+}
+@media screen and (max-width: 799px) {
+    .rev{
+        width: 450px;
+    }
+    .past_rev{
+        width: 400px;
+    }
+    .heading{
+        flex-direction: column;
+        gap: 20px;
+    }
+    .text{
+        text-align:center;
+    }
+}
