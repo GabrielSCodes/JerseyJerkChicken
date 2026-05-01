@@ -28,10 +28,18 @@
             -->
         </nav>
         <h1> Supplies </h1>
+        <div class="order-form-container">
+            <form id="inventoryOrderForm">
+                <input type="text" id="itemName" placeholder="Item Name" required>
+                <input type="number" id="itemAmount" placeholder="Amount" min="1" required>
+                <button type="submit" id="completeOrderBtn">Complete Order</button>
+            </form>
+        </div>
         <div class="stock_align"> 
         <div class="container">
             <div class="heading">
                 <p class="item_Name"> Item Name: </p>
+                <p class="price"> Price </p>
                 <p class="total"> Total Bought </p>
                 <p class="remaining"> Left In Stock </p>
             </div>

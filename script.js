@@ -636,33 +636,33 @@ document.addEventListener("DOMContentLoaded", () => {
     const inventoryList = document.getElementById("inventoryList");
     if (inventoryList) {
       const defaultIngredients = [
-        { name: "Tomatoes", totalBought: 50, remaining: 50 },
-        { name: "Lettuce", totalBought: 50, remaining: 50 },
-        { name: "Homie Drizzle", totalBought: 50, remaining: 50 },
-        { name: "Bread", totalBought: 50, remaining: 50 },
-        { name: "Cheese", totalBought: 50, remaining: 50 },
-        { name: "Onions", totalBought: 50, remaining: 50 },
-        { name: "Ketchup", totalBought: 50, remaining: 50 },
-        { name: "Mayo", totalBought: 50, remaining: 50 },
-        { name: "Chicken", totalBought: 50, remaining: 50 },
-        { name: "Potatoes", totalBought: 50, remaining: 50 },
-        { name: "Yams", totalBought: 50, remaining: 50 },
-        { name: "Beans", totalBought: 50, remaining: 50 },
-        { name: "Lentils", totalBought: 50, remaining: 50 },
-        { name: "Cow Meat", totalBought: 50, remaining: 50 },
-        { name: "Rice", totalBought: 50, remaining: 50 },
-        { name: "Eggs", totalBought: 50, remaining: 50 },
-        { name: "Bacon", totalBought: 50, remaining: 50 },
-        { name: "Shrimp", totalBought: 50, remaining: 50 },
-        { name: "Avocado", totalBought: 50, remaining: 50 },
-        { name: "Beef", totalBought: 50, remaining: 50 },
-        { name: "Steak", totalBought: 50, remaining: 50 },
-        { name: "Coca Cola", totalBought: 50, remaining: 50 },
-        { name: "Sprite", totalBought: 50, remaining: 50 },
-        { name: "Fanta", totalBought: 50, remaining: 50 },
-        { name: "Guarana", totalBought: 50, remaining: 50 },
-        { name: "Inca Kola", totalBought: 50, remaining: 50 },
-        { name: "Water", totalBought: 50, remaining: 50 }
+        { name: "Tomatoes", price: 1.90, totalBought: 50, remaining: 50 },
+        { name: "Lettuce", price: 1.50, totalBought: 50, remaining: 50 },
+        { name: "Homie Drizzle", price: 4.00, totalBought: 50, remaining: 50 },
+        { name: "Bread", price: 1.85, totalBought: 50, remaining: 50 },
+        { name: "Cheese", price: 4.50, totalBought: 50, remaining: 50 },
+        { name: "Onions", price: 1.00, totalBought: 50, remaining: 50 },
+        { name: "Ketchup", price: 2.50, totalBought: 50, remaining: 50 },
+        { name: "Mayo", price: 4.00, totalBought: 50, remaining: 50 },
+        { name: "Chicken", price: 2.10, totalBought: 50, remaining: 50 },
+        { name: "Potatoes", price: 0.88, totalBought: 50, remaining: 50 },
+        { name: "Yams", price: 1.20, totalBought: 50, remaining: 50 },
+        { name: "Beans", price: 1.50, totalBought: 50, remaining: 50 },
+        { name: "Lentils", price: 1.50, totalBought: 50, remaining: 50 },
+        { name: "Cow Meat", price: 6.76, totalBought: 50, remaining: 50 },
+        { name: "Rice", price: 3.50, totalBought: 50, remaining: 50 },
+        { name: "Eggs", price: 2.50, totalBought: 50, remaining: 50 },
+        { name: "Bacon", price: 5.00, totalBought: 50, remaining: 50 },
+        { name: "Shrimp", price: 7.00, totalBought: 50, remaining: 50 },
+        { name: "Avocado", price: 0.56, totalBought: 50, remaining: 50 },
+        { name: "Beef", price: 6.76, totalBought: 50, remaining: 50 },
+        { name: "Steak", price: 6.76, totalBought: 50, remaining: 50 },
+        { name: "Coca Cola", price: 2.20, totalBought: 50, remaining: 50 },
+        { name: "Sprite", price: 2.20, totalBought: 50, remaining: 50 },
+        { name: "Fanta", price: 2.20, totalBought: 50, remaining: 50 },
+        { name: "Guarana", price: 2.20, totalBought: 50, remaining: 50 },
+        { name: "Inca Kola", price: 2.20, totalBought: 50, remaining: 50 },
+        { name: "Water", price: 3.00, totalBought: 50, remaining: 50 }
       ];
 
       const renderInventory = (docs) => {
@@ -683,6 +683,9 @@ document.addEventListener("DOMContentLoaded", () => {
           const nameEl = document.createElement("p");
           nameEl.textContent = ingredient.name || "Unnamed Ingredient";
 
+          const priceEl = document.createElement("p");
+          priceEl.textContent = "$" + (ingredient.price != null ? ingredient.price.toFixed(2) : "0.00");
+
           const totalEl = document.createElement("p");
           totalEl.textContent = ingredient.totalBought != null ? ingredient.totalBought : "0";
 
@@ -690,6 +693,7 @@ document.addEventListener("DOMContentLoaded", () => {
           remainingEl.textContent = ingredient.remaining != null ? ingredient.remaining : "0";
 
           card.appendChild(nameEl);
+          card.appendChild(priceEl);
           card.appendChild(totalEl);
           card.appendChild(remainingEl);
           inventoryList.appendChild(card);
@@ -702,6 +706,7 @@ document.addEventListener("DOMContentLoaded", () => {
             defaultIngredients.map((ingredient) =>
               addDoc(collection(db, "ingredients"), {
                 name: ingredient.name,
+                price: ingredient.price,
                 totalBought: ingredient.totalBought,
                 remaining: ingredient.remaining,
                 createdAt: serverTimestamp()
@@ -727,6 +732,68 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
+    // Inventory Order Form
+    const inventoryOrderForm = document.getElementById("inventoryOrderForm");
+    if (inventoryOrderForm) {
+      const itemNameInput = document.getElementById("itemName");
+      const itemAmountInput = document.getElementById("itemAmount");
+
+      inventoryOrderForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        
+        const itemName = itemNameInput.value.trim();
+        const amount = parseInt(itemAmountInput.value);
+        
+        if (!itemName || !amount || amount < 1) {
+          alert("Please enter a valid item name and amount.");
+          return;
+        }
+
+        try {
+          // Find the ingredient in the database
+          const ingredientsQuery = query(collection(db, "ingredients"), where("name", "==", itemName));
+          const ingredientSnapshot = await getDocs(ingredientsQuery);
+          
+          if (ingredientSnapshot.empty) {
+            alert("Item not found in inventory. Please check the item name.");
+            return;
+          }
+
+          const ingredientDoc = ingredientSnapshot.docs[0];
+          const ingredientData = ingredientDoc.data();
+          const currentTotalBought = ingredientData.totalBought || 0;
+          const currentRemaining = ingredientData.remaining || 0;
+          const itemPrice = ingredientData.price || 0;
+          const totalCost = itemPrice * amount;
+
+          // Update the ingredient in the database
+          await updateDoc(doc(db, "ingredients", ingredientDoc.id), {
+            totalBought: currentTotalBought + amount,
+            remaining: currentRemaining + amount
+          });
+
+          // Add to costs collection
+          await addDoc(collection(db, "costs"), {
+            type: "inventory-order",
+            item: itemName,
+            cost: totalCost,
+            quantity: amount,
+            unitPrice: itemPrice,
+            createdAt: serverTimestamp()
+          });
+
+          // Clear the form
+          itemNameInput.value = "";
+          itemAmountInput.value = "";
+          
+          alert(`Successfully ordered ${amount} of ${itemName}!`);
+        } catch (error) {
+          console.error("Error processing inventory order:", error);
+          alert("Failed to process order. Please try again.");
+        }
+      });
+    }
+
     const orderList = document.getElementById("orderList");
     if (orderList) {
       const formatOrderTime = (timestamp) => {
@@ -743,7 +810,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const renderOrders = (docs) => {
         orderList.innerHTML = "";
-        if (!docs.length) {
+        
+        // Filter out completed orders
+        const activeOrders = docs.filter(doc => doc.data().status !== "complete");
+        
+        if (!activeOrders.length) {
           const empty = document.createElement("p");
           empty.className = "empty-order";
           empty.textContent = "No orders have been created yet.";
@@ -751,7 +822,7 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
 
-        docs.forEach((docSnapshot, index) => {
+        activeOrders.forEach((docSnapshot, index) => {
           const order = docSnapshot.data();
           const card = document.createElement("div");
           card.className = "order_card";
@@ -777,9 +848,107 @@ document.addEventListener("DOMContentLoaded", () => {
           time.textContent = formatOrderTime(order.createdAt);
           card.appendChild(time);
 
+          // Add Complete button
+          const completeBtn = document.createElement("button");
+          completeBtn.className = "completeBtn";
+          completeBtn.textContent = "Complete";
+          completeBtn.addEventListener("click", async () => {
+            await completeOrder(docSnapshot.id, order.items, order.total);
+          });
+          
+          // Add Delete button
+          const deleteBtn = document.createElement("button");
+          deleteBtn.className = "deleteBtn";
+          deleteBtn.textContent = "Delete";
+          deleteBtn.addEventListener("click", async () => {
+            if (confirm("Are you sure you want to delete this order?")) {
+              await deleteDoc(doc(db, "orders", docSnapshot.id));
+            }
+          });
+
+          // Wrap buttons in a container
+          const buttonContainer = document.createElement("div");
+          buttonContainer.className = "button-container";
+          buttonContainer.appendChild(completeBtn);
+          buttonContainer.appendChild(deleteBtn);
+          card.appendChild(buttonContainer);
+
           orderList.appendChild(card);
         });
       };
+
+      // Function to complete an order and deduct ingredients
+      async function completeOrder(orderId, items, orderTotal) {
+        try {
+          if (!items || !items.length) {
+            alert("No items in this order.");
+            return;
+          }
+
+          // Get current ingredient stock
+          const ingredientsQuery = query(collection(db, "ingredients"));
+          const ingredientSnapshot = await getDocs(ingredientsQuery);
+          
+          const ingredientStock = {};
+          ingredientSnapshot.forEach((doc) => {
+            const data = doc.data();
+            ingredientStock[data.name] = { id: doc.id, remaining: data.remaining || 0 };
+          });
+
+          // Calculate required ingredients for this order
+          const requiredIngredients = {};
+          items.forEach((item) => {
+            const itemName = item.name.toLowerCase();
+            const recipe = menuRecipes[itemName];
+            if (recipe) {
+              for (const [ingredient, qty] of Object.entries(recipe)) {
+                const totalNeeded = qty * item.quantity;
+                requiredIngredients[ingredient] = (requiredIngredients[ingredient] || 0) + totalNeeded;
+              }
+            }
+          });
+
+          // Check if all ingredients are available
+          for (const [ingredient, needed] of Object.entries(requiredIngredients)) {
+            const stockItem = ingredientStock[ingredient];
+            if (!stockItem || stockItem.remaining < needed) {
+              alert(`Not enough ${ingredient} in stock to complete this order.`);
+              return;
+            }
+          }
+
+          // Deduct ingredients from stock
+          for (const [ingredient, needed] of Object.entries(requiredIngredients)) {
+            const stockItem = ingredientStock[ingredient];
+            if (stockItem) {
+              await updateDoc(doc(db, "ingredients", stockItem.id), {
+                remaining: stockItem.remaining - needed
+              });
+            }
+          }
+
+          // Update order status to "complete" instead of deleting
+          await updateDoc(doc(db, "orders", orderId), {
+            status: "complete"
+          });
+
+          // Add to gains collection
+          const totalAmount = parseFloat(orderTotal) || 0;
+          if (totalAmount > 0) {
+            await addDoc(collection(db, "gains"), {
+              source: "completed-order",
+              amount: totalAmount,
+              orderId: orderId,
+              createdAt: serverTimestamp()
+            });
+          }
+          
+          alert("Order completed! Ingredients have been deducted from inventory.");
+        } catch (error) {
+          console.error("Error completing order:", error);
+          alert("Failed to complete order. Please try again.");
+        }
+      }
 
       const ordersCollection = collection(db, "orders");
       onSnapshot(ordersCollection, (snapshot) => {
@@ -827,6 +996,106 @@ document.addEventListener("DOMContentLoaded", () => {
         "water"
       ])
     };
+
+    // Menu item recipes - ingredients required for each item
+    // Keys match the ingredient names in the database
+    const menuRecipes = {
+      "tenders and fries": { "Chicken": 1, "Potatoes": 3 },
+      "coconut fried shrimp": { "Shrimp": 5 },
+      "the jerk": { "Chicken": 1 },
+      "mozzarella sticks": { "Bread": 2, "Cheese": 1 },
+      "mini sliders": { "Beef": 3, "Cheese": 1, "Tomatoes": 1, "Lettuce": 1, "Onions": 1, "Ketchup": 1 },
+      "chicken sandwich": { "Chicken": 1, "Bread": 1 },
+      "jerk chicken sandwich": { "Chicken": 1, "Bread": 1, "Potatoes": 1, "Lettuce": 1, "Onions": 1 },
+      "bacon egg and cheese": { "Bacon": 2, "Eggs": 1, "Cheese": 1, "Bread": 1 },
+      "blt": { "Bread": 1, "Bacon": 2, "Lettuce": 2 },
+      "mogger meal": { "Steak": 1, "Eggs": 2, "Avocado": 1, "Homie Drizzle": 1 },
+      "surfin and jerkin": { "Shrimp": 8, "Chicken": 1, "Potatoes": 2 },
+      "jack o jerk": { "Beef": 1, "Bread": 1, "Mayo": 1, "Lettuce": 1, "Potatoes": 1 },
+      "smokey pot roaster": { "Beef": 1, "Yams": 1, "Lettuce": 1, "Tomatoes": 1, "Onions": 1 },
+      "combo": { "Rice": 1, "Beef": 1, "Potatoes": 2, "Beans": 1 },
+      "coca cola": { "Coca Cola": 1 },
+      "sprite": { "Sprite": 1 },
+      "fanta": { "Fanta": 1 },
+      "guarana": { "Guarana": 1 },
+      "inca kola": { "Inca Kola": 1 },
+      "water": { "Water": 1 }
+    };
+
+    // Check if menu item is available based on ingredient stock
+    async function checkMenuAvailability() {
+      try {
+        const ingredientsQuery = query(collection(db, "ingredients"));
+        const ingredientSnapshot = await getDocs(ingredientsQuery);
+        
+        // Create a map of ingredient name to remaining stock (case-insensitive keys)
+        const ingredientStock = {};
+        ingredientSnapshot.forEach((doc) => {
+          const data = doc.data();
+          ingredientStock[data.name.toLowerCase()] = data.remaining || 0;
+        });
+
+        // Check each menu item
+        menuCards.forEach((card) => {
+          const itemName = card.querySelector(".item_name")?.textContent?.trim().toLowerCase() || "";
+          const itemDesc = card.querySelector(".item_desc");
+          const recipe = menuRecipes[itemName];
+          
+          if (!recipe) return;
+          
+          let isAvailable = true;
+          
+          for (const [ingredient, required] of Object.entries(recipe)) {
+            const available = ingredientStock[ingredient.toLowerCase()] || 0;
+            if (available < required) {
+              isAvailable = false;
+              break;
+            }
+          }
+          
+          if (!isAvailable && itemDesc) {
+            itemDesc.textContent = "Unavailable At The Moment";
+            itemDesc.style.color = "#ff0000";
+            card.style.opacity = "0.6";
+            card.style.pointerEvents = "none";
+          } else if (itemDesc) {
+            // Restore original description based on item name
+            const originalDescriptions = {
+              "the jerk": "Oven-Roasted chicken with a side of peppers",
+              "tenders and fries": "Classic Fries with 6 piece tenders",
+              "coconut fried shrimp": "Succulent shrimp coated in a mixture of shredded coconut",
+              "mini sliders": "Small, savory, 2-to-3-inch sandwiches",
+              "mozzarella sticks": "Small, savory, 2-to-3-inch sandwiches",
+              "chicken sandwich": "Small, savory, 2-to-3-inch sandwiches",
+              "jerk chicken sandwich": "Small, savory, 2-to-3-inch sandwiches",
+              "bacon egg and cheese": "Small, savory, 2-to-3-inch sandwiches",
+              "blt": "Small, savory, 2-to-3-inch sandwiches",
+              "mogger meal": "Steak, Eggs, Avocado, Homey Drizzle",
+              "surfin and jerkin": "Shrimp and Chicken With Mashed Potatoes",
+              "jack o jerk": "Special Sauce, Minimal Lettuce & Fries",
+              "smokey pot roaster": "Tough Cut Beef With Gorilla Style BIG Yams",
+              "coca cola": "Bottled Cola",
+              "sprite": "Bottled Cola",
+              "fanta": "Bottled Cola",
+              "guarana": "Bottled Cola",
+              "inca kola": "Bottled Cola",
+              "water": "Bottled Water"
+            };
+            itemDesc.textContent = originalDescriptions[itemName] || itemDesc.textContent;
+            itemDesc.style.color = "";
+            card.style.opacity = "1";
+            card.style.pointerEvents = "auto";
+          }
+        });
+      } catch (error) {
+        console.error("Error checking menu availability:", error);
+      }
+    }
+
+    // Run availability check on menu and createOrder pages
+    if (menuCards.length) {
+      checkMenuAvailability();
+    }
 
     function filterMenu(category) {
       menuCards.forEach((card) => {
@@ -982,7 +1251,8 @@ document.addEventListener("DOMContentLoaded", () => {
           createdAt: serverTimestamp(),
           items: items.map((item) => ({ name: item.name, quantity: item.quantity })),
           total: Number(orderTotalElement?.textContent) || 0,
-          waiterEmail: currentUser?.email || auth.currentUser?.email || ""
+          waiterEmail: currentUser?.email || auth.currentUser?.email || "",
+          status: "cooking"
         };
 
         try {

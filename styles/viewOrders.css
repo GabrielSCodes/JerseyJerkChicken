@@ -80,7 +80,8 @@ h1{
 .order_card{
     background-color: #761B1B;
     width:314px;
-    height:369px;
+    min-height:280px;
+    max-height:400px;
     font-family: "Damion", cursive;
   font-weight: 400;
   font-style: normal;
@@ -90,6 +91,7 @@ h1{
   display:flex;
   flex-direction:column;
   justify-content:space-between;
+  overflow: hidden;
 }
 .align{
     margin-left:40px;
@@ -98,15 +100,20 @@ h1{
     font-size:36px;
     text-align:center;
     padding-top:20px;
+    word-wrap: break-word;
 }
 .orderInfo{
     font-size:32px;
     padding-left:25px;
+    word-wrap: break-word;
+    overflow-y: auto;
+    max-height: 150px;
 }
 .time{
     font-size:20px;
     padding-left:30px;
     display:flex;
+    flex-wrap: wrap;
 }
 .top{
     display:flex;
@@ -119,4 +126,38 @@ h1{
     margin-top:20px;
     gap: 50px;
     flex-wrap: wrap;
+}
+.completeBtn {
+    font-family: "Bpmf Huninn", cursive;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.completeBtn:hover {
+    background-color: #45a049;
+}
+.deleteBtn {
+    font-family: "Bpmf Huninn", cursive;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.deleteBtn:hover {
+    background-color: #da190b;
+}
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 25px;
 }
