@@ -1,0 +1,27 @@
+{
+  "name": "jerseyjerkchicken",
+  "version": "1.0.0",
+  "description": "",
+  "main": "firebase-config.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GabrielSCodes/JerseyJerkChicken.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/GabrielSCodes/JerseyJerkChicken/issues"
+  },
+  "homepage": "https://github.com/GabrielSCodes/JerseyJerkChicken#readme",
+  "devDependencies": {
+    "vite": "^8.0.10"
+  }
+}

@@ -21,7 +21,9 @@ import {
     onSnapshot,
     getDoc,
     setDoc,
-    deleteDoc
+    deleteDoc,
+    orderBy,
+    limit
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 //Login
@@ -411,7 +413,7 @@ function canTerminateEmployee(targetEmail, targetTitle) {
         return lowerTitle !== "owner";
     }
     if (currentRole === "manager") {
-        return lowerTitle !== "owner";
+        return lowerTitle !== "owner" && lowerTitle !== "manager";
     }
     return false;
 }
@@ -775,8 +777,8 @@ document.addEventListener("DOMContentLoaded", () => {
           // Add to costs collection
           await addDoc(collection(db, "costs"), {
             type: "inventory-order",
+            amount: totalCost,
             item: itemName,
-            cost: totalCost,
             quantity: amount,
             unitPrice: itemPrice,
             createdAt: serverTimestamp()
@@ -856,21 +858,18 @@ document.addEventListener("DOMContentLoaded", () => {
             await completeOrder(docSnapshot.id, order.items, order.total);
           });
           
-          // Add Delete button
-          const deleteBtn = document.createElement("button");
-          deleteBtn.className = "deleteBtn";
-          deleteBtn.textContent = "Delete";
-          deleteBtn.addEventListener("click", async () => {
-            if (confirm("Are you sure you want to delete this order?")) {
-              await deleteDoc(doc(db, "orders", docSnapshot.id));
-            }
-          });
-
-          // Wrap buttons in a container
-          const buttonContainer = document.createElement("div");
-          buttonContainer.className = "button-container";
-          buttonContainer.appendChild(completeBtn);
-          buttonContainer.appendChild(deleteBtn);
+          // Add Delete button only for owner and manager
+          if (currentRole === "owner" || currentRole === "manager") {
+            const deleteBtn = document.createElement("button");
+            deleteBtn.className = "deleteBtn";
+            deleteBtn.textContent = "Delete";
+            deleteBtn.addEventListener("click", async () => {
+              if (confirm("Are you sure you want to delete this order?")) {
+                await deleteDoc(doc(db, "orders", docSnapshot.id));
+              }
+            });
+            buttonContainer.appendChild(deleteBtn);
+          }
           card.appendChild(buttonContainer);
 
           orderList.appendChild(card);
@@ -1342,6 +1341,258 @@ document.addEventListener("DOMContentLoaded", () => {
         createRoleSidebars();
         enforceRoleAccess(currentRole);
     });
+});
+
+// Clock In functionality
+document.addEventListener("DOMContentLoaded", () => {
+    const hoursElement = document.querySelector("h2");
+    const dateElement = document.querySelector(".date");
+    const startButton = document.querySelector(".start");
+    const endButton = document.querySelector(".end");
+    const shiftTodayElement = document.querySelector(".times span:nth-child(1)");
+    const clockedInElement = document.querySelector(".times span:nth-child(2)");
+    const clockedOutElement = document.querySelector(".times span:nth-child(3)");
+
+    if (!hoursElement || !dateElement || !startButton || !endButton) return;
+
+    let currentShiftStart = null;
+    let currentShiftEnd = null;
+
+    // Set today's date
+    const today = new Date();
+    dateElement.textContent = `Date: ${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
+
+    // Wage rates
+    const wageRates = {
+        manager: 15,
+        chef: 13,
+        waiter: 10,
+        owner: 0
+    };
+
+    // Function to get start of week (Monday)
+    function getStartOfWeek(date) {
+        const d = new Date(date);
+        const day = d.getDay();
+        const diff = d.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is Sunday
+        return new Date(d.setDate(diff));
+    }
+
+    // Function to calculate hours this week
+    async function updateHoursThisWeek() {
+        if (!currentUser) return;
+        try {
+            const startOfWeek = getStartOfWeek(today);
+            const endOfWeek = new Date(startOfWeek);
+            endOfWeek.setDate(startOfWeek.getDate() + 6);
+            endOfWeek.setHours(23, 59, 59);
+
+            const shiftsQuery = query(
+                collection(db, "shifts"),
+                where("email", "==", currentUser.email),
+                where("startTime", ">=", startOfWeek),
+                where("startTime", "<=", endOfWeek)
+            );
+            const shiftsSnapshot = await getDocs(shiftsQuery);
+            let totalHours = 0;
+            shiftsSnapshot.forEach(doc => {
+                const shift = doc.data();
+                if (shift.endTime) {
+                    const hours = (shift.endTime.toDate() - shift.startTime.toDate()) / (1000 * 60 * 60);
+                    totalHours += hours;
+                }
+            });
+            hoursElement.textContent = `Hours done this week: ${totalHours.toFixed(1)}`;
+        } catch (error) {
+            console.error("Error calculating hours:", error);
+        }
+    }
+
+    // Function to update shift display
+    function updateShiftDisplay() {
+        if (currentShiftStart) {
+            clockedInElement.textContent = `Clocked In At: ${currentShiftStart.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+        } else {
+            clockedInElement.textContent = `Clocked In At: --`;
+        }
+        if (currentShiftEnd) {
+            clockedOutElement.textContent = `Clocked Out At: ${currentShiftEnd.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+            const hours = (currentShiftEnd - currentShiftStart) / (1000 * 60 * 60);
+            shiftTodayElement.textContent = `Shift For Today: ${hours.toFixed(1)}hrs`;
+        } else {
+            clockedOutElement.textContent = `Clocked Out At: --`;
+            shiftTodayElement.textContent = `Shift For Today: --`;
+        }
+    }
+
+    // Start shift
+    startButton.addEventListener("click", async () => {
+        if (!currentUser) {
+            alert("Please log in first.");
+            return;
+        }
+        if (currentShiftStart) {
+            alert("Shift already started.");
+            return;
+        }
+        currentShiftStart = new Date();
+        updateShiftDisplay();
+        // Save to database
+        try {
+            await addDoc(collection(db, "shifts"), {
+                email: currentUser.email,
+                startTime: serverTimestamp(),
+                createdAt: serverTimestamp()
+            });
+        } catch (error) {
+            console.error("Error starting shift:", error);
+        }
+    });
+
+    // End shift
+    endButton.addEventListener("click", async () => {
+        if (!currentUser) {
+            alert("Please log in first.");
+            return;
+        }
+        if (!currentShiftStart) {
+            alert("No active shift to end.");
+            return;
+        }
+        currentShiftEnd = new Date();
+        const hours = (currentShiftEnd - currentShiftStart) / (1000 * 60 * 60);
+        updateShiftDisplay();
+        updateHoursThisWeek();
+
+        // Get user role for wage
+        const role = await getUserRole(currentUser);
+        const wage = wageRates[role] || 0;
+        const cost = wage * hours;
+
+        // Add to costs if wage > 0
+        if (cost > 0) {
+            try {
+                await addDoc(collection(db, "costs"), {
+                    type: "wage",
+                    amount: cost,
+                    hours: hours,
+                    wageRate: wage,
+                    email: currentUser.email,
+                    role: role,
+                    createdAt: serverTimestamp()
+                });
+            } catch (error) {
+                console.error("Error adding wage cost:", error);
+            }
+        }
+
+        // Update the shift in database with end time
+        try {
+            // Find the latest shift for this user without endTime
+            const shiftsQuery = query(
+                collection(db, "shifts"),
+                where("email", "==", currentUser.email),
+                orderBy("startTime", "desc")
+            );
+            const shiftsSnapshot = await getDocs(shiftsQuery);
+            const latestShift = shiftsSnapshot.docs.find(doc => !doc.data().endTime);
+            if (latestShift) {
+                await updateDoc(doc(db, "shifts", latestShift.id), {
+                    endTime: serverTimestamp()
+                });
+            }
+        } catch (error) {
+            console.error("Error ending shift:", error);
+        }
+
+        // Reset for next shift
+        currentShiftStart = null;
+        currentShiftEnd = null;
+    });
+
+    // Initial load
+    updateHoursThisWeek();
+    updateShiftDisplay();
+});
+
+// Accounting page functionality
+document.addEventListener("DOMContentLoaded", () => {
+    const totalSpentElement = document.querySelector(".row:nth-child(1) .value");
+    const amountReceivedElement = document.querySelector(".row:nth-child(2) .value");
+    const totalOrdersElement = document.querySelector(".row:nth-child(3) .value");
+    const grossIncomeElement = document.querySelector(".row:nth-child(4) .value");
+    const taxedRow = document.querySelector(".row:nth-child(5)");
+    let netIncomeElement = document.querySelector(".row:nth-child(6) .value");
+
+    if (!totalSpentElement) return;
+
+    // Remove taxed row
+    if (taxedRow) {
+        taxedRow.remove();
+        // After removal, net income is now 5th
+        netIncomeElement = document.querySelector(".row:nth-child(5) .value");
+    }
+
+    async function updateAccounting() {
+        try {
+            // Total spent: sum of all costs
+            const costsQuery = query(collection(db, "costs"));
+            const costsSnapshot = await getDocs(costsQuery);
+            let totalSpent = 0;
+            costsSnapshot.forEach(doc => {
+                const cost = doc.data();
+                totalSpent += parseFloat(cost.amount || 0);
+            });
+            totalSpentElement.textContent = `$${totalSpent.toFixed(2)}`;
+
+            // Amount received: sum of gains for today
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const tomorrow = new Date(today);
+            tomorrow.setDate(today.getDate() + 1);
+
+            const gainsQuery = query(
+                collection(db, "gains"),
+                where("createdAt", ">=", today),
+                where("createdAt", "<", tomorrow)
+            );
+            const gainsSnapshot = await getDocs(gainsQuery);
+            let amountReceived = 0;
+            gainsSnapshot.forEach(doc => {
+                const gain = doc.data();
+                amountReceived += parseFloat(gain.amount || 0);
+            });
+            amountReceivedElement.textContent = `$${amountReceived.toFixed(2)}`;
+
+            // Total orders: count of orders for today
+            const ordersQuery = query(
+                collection(db, "orders"),
+                where("createdAt", ">=", today),
+                where("createdAt", "<", tomorrow)
+            );
+            const ordersSnapshot = await getDocs(ordersQuery);
+            totalOrdersElement.textContent = ordersSnapshot.size.toString();
+
+            // Gross Income: sum of all gains
+            const allGainsQuery = query(collection(db, "gains"));
+            const allGainsSnapshot = await getDocs(allGainsQuery);
+            let grossIncome = 0;
+            allGainsSnapshot.forEach(doc => {
+                const gain = doc.data();
+                grossIncome += parseFloat(gain.amount || 0);
+            });
+            grossIncomeElement.textContent = `$${grossIncome.toFixed(2)}`;
+
+            // Net Income: gross - total spent
+            const netIncome = grossIncome - totalSpent;
+            netIncomeElement.textContent = `$${netIncome.toFixed(2)}`;
+
+        } catch (error) {
+            console.error("Error updating accounting:", error);
+        }
+    }
+
+    updateAccounting();
 });
 
 // Rate Stars onClick Function
